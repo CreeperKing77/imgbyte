@@ -6,6 +6,8 @@ from .imgbyte import (
     get_uid,
     post_vote,
     comment_vote,
+
+    Notification,
     get_notif_count,
     get_notifications,
 
