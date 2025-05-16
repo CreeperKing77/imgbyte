@@ -1,7 +1,7 @@
 from .imgbyte import (
     createWindow,
     img_url,
-    getToken,
+    get_token,
     login,
     get_uid,
     post_vote,
