@@ -2,4 +2,9 @@
 Python module for interaction and actions with the imgflip website using a combination of selenium and requests.
 
 # Documentation
-/ test
+## Setup
+createWindow()
+> Creates a new window and bot instance.
+> Usage:
+``` driver = createWindow() ```
+> The driver object will then be used for all future imgbyte functions.
