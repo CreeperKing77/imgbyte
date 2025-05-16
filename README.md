@@ -20,3 +20,9 @@ login(driver, username/email, password)
 > Makes use of the get_token function to add the session token to the driver, as ``` driver.token ```. <br/>
 > Most functions require being logged into a user account. Ones that do will be notated with a ``` ~ ```. <br/>
 > Usage: ``` login(driver, username, password) ```
+
+get_token(driver)
+> Returns the current session token as a string. Requires being logged in.
+> Optionally, use ```driver.token``` instead.
+
+
