@@ -26,12 +26,12 @@ get_token(driver)
 > Optionally, use ```driver.token``` instead.
 
 ## Comments
-comment_vote(dtiver, vote_type, comment_id) ~
+comment_vote(dtiver, vote_type, comment_id) `~`
 > Add or Remove and upvote or downvote from a comment.<br/>
 > vote_type must be 1 to upvote, 0 to downvote, and -1 to remove your current vote.<br/>
 > Usage: ```comment_vote(driver, 1, 1234)``` *Upvotes the comment with id of 1234*
 
-get_comments(driver, post_id) *
+get_comments(driver, post_id) `*`
 > Returns a list of comment objects on the post with the given post id.<br/>
 > Comment objects have the attributes ```identifier, user, content, postid, user_perm, image```<br/>
 
@@ -42,5 +42,70 @@ get_comments(driver, post_id) *
 > `user_perm`: the permission level of the user. includes ```global-mod, site-mod, stream-mod, normal-user```<br/>
 > `image`: if the comment contains an image, this will be a base64 encoded string of said image<br/>
 
+comment_post(driver, post_id, text) `~`
+> Comments on the image with the given post id, with the text as the comment content.<br/>
+> Returns the response code from the server as a string.<br/>
+> Usage: `comment_post(driver, '9geor3', 'This is a comment')`
 
+comment_reply(driver, post_id, comment_id, text) `~` `*`
+> Comments a reply to another comment with the given text.<br/>
+> Identical usage to `comment_post()` except it additionally requires the id of the comment to reply to.<br/>
+> The comment id is typicall obtained with `get_comments()`.
 
+del_own_comment(driver, comment_id) `~`
+> Deletes your comment with the given comment id.
+> Unlike the `del_comment()` function, it does not require you to be a moderator in the stream the comment is in.
+
+get_basic_comments(driver, post_id) `*`
+> Works similarly to the `get_comments()` function, but instead of returning objects with attributes, it returns the comments as a list of html objects.
+
+## Posts
+post_vote(driver, vote_type, post_id) `~`
+> Upvote, downvote, or remove your vote from a post.<br/>
+> vote_type can be 1 for upvote, 0 for downvote, and -1 to remove your current vote.
+
+get_post(driver, post_id) `*`
+> Returns the post with the given id as an object.
+> Post objects have the following attributes:<br/>
+
+> `identifier`: the post id<br/>
+> `author`: the creator of the post<br/>
+> `title`: the post's title<br/>
+> `desc`: the post's description<br/>
+> `tags`: the post's tags (list of strings)<br/>
+> `stream`: the stream the post is currently submitted in<br/>
+> `image`: base64 encoded string of the post's image<br/>
+> If a given attribute does not exist (e.g. there are no tags) it will return with a string labeled ⊙No.(thing), for example:<br/>
+> `⊙No.Tags`
+> If the post owner is unknown, the owner attribute will be `⊙anonymous`
+
+get_basic_posts(driver, stream, sort) `*`
+> Returns all posts on the first page of the given stream as a list of html objects.<br/>
+> Sort can either be `hot` or `new`. Leave blank for the stream default.
+
+flag_image(driver, post_id, flag_type, text) `~`
+> Flags the image with the given post id.<br/>
+> Text is the note that will be given with the flag.<br/>
+> Valid options for flag_type are:<br/>
+> `img-flag-wrong-stream`: Violates stream rules that aren't disallowed by site TOS<br/>
+> `img-nsfw`: NSFW content in image<br/>
+> `img-spam`: Post contains excessive copypasta spam or advertising<br/>
+> `img-abuse`: Post violates any other part of the imgflip TOS<br/>
+
+create_post(driver, template, stream, title, nsfw, text) `~` `*`
+> Create a new post automatically using the imgflip meme generator, and submit it to a specific stream THAT YOU FOLLOW.<br/>
+> the template field is the numerical id of the template you want to use. For your own templates, you can find this by going to your profile, My Templates, and select "view template" on the one you wish to view.<br/>
+> the NSFW field is either `True` or `False`.<br/>
+> For text insertion into the template, imgbyte supports 1 text box being filled. Templates you select must have at least 1 text box, and a maxmimum of one text box may be used, which is always the first one listed on the meme generator page.<br/>
+> Usage: `create_post(driver, 1, 'fun', 'This is a title', False, 'This is a text box')`
+
+## Notifications
+get_notif_count(driver) `~`
+> Returns an integer with the number of notifcations you currently have.
+
+get_notifications(driver) `~` `*`
+> WARNING: Use of this function will clear your notifications when used.
+> Note that the way the function is currently set up only works for comment notifications. Any other kind of notification will return with broken strings for the attributes. It is for this reason I recommend changing your account settings to only include comment notifications.<br/>
+> Returns a list of notification objects, with the following attributes:<br/>
+> `post_id`: The id of the post on which the notification occured<br/>
+> `com_id`: The id of the comment that gave the notification<br/>
