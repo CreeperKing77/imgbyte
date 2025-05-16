@@ -147,6 +147,11 @@ def get_notif_count(driver):
     respInfo = response.json()
     return int(respInfo['user']['nots'])
     
+class Notification:
+    def __init__(self, postid, com_id):
+        self.post_id = post_id
+        self.com_id = com_id
+  
 #requires being logged in
 def get_notifications(driver):
     img_url(driver, f"notifications")
@@ -154,19 +159,17 @@ def get_notifications(driver):
     #collect notifications
     notifications = driver.find_elements(By.CLASS_NAME, "nt-not")
     #extract data
-    not_dict = {}
-    i = 0
+    nots = []
     for notif in notifications:
-        i += 1
         try:
             post_id = notif.get_attribute("href")[22:28]
             com_id = notif.get_attribute("href")[-8:]
-            not_dict[i] = [post_id, com_id]
+            nots.append(Notification(post_id, com_id))
         except:
             pass
 
-    return not_dict
-        
+    return nots
+  
 
 class Comment:
     def __init__(self, identifier, user, content, postid, user_perm, image):
