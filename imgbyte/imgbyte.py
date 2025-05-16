@@ -61,7 +61,7 @@ def login(driver, user, pswd):
     print("Succesfully logged in.")
     time.sleep(1)
 
-    driver.token = getToken(driver)
+    driver.token = get_token(driver)
 
 def get_uid(driver, username):
     url = f"https://imgflip.com/user/{username}"
