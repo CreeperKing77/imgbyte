@@ -38,7 +38,7 @@ def img_url(driver, path):
             print("\tCould not get page, check your internet connetion | Retrying...")
             time.sleep(4)
 
-def getToken(driver):
+def get_token(driver):
 
     #Convert cookies for requests
     session = requests.Session()
