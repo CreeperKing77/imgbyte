@@ -7,7 +7,7 @@ setup(
     description='Automation library for interacting with Imgflip using Selenium and Requests',
     long_description=open('README.md').read(),
     long_description_content_type='text/markdown',
-    url='https://github.com/CreeperKing77/imgflipbot',
+    url='https://github.com/CreeperKing77/imgbyte',
     packages=find_packages(),
     install_requires=[
         'selenium',
