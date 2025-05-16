@@ -104,8 +104,32 @@ get_notif_count(driver) `~`
 > Returns an integer with the number of notifcations you currently have.
 
 get_notifications(driver) `~` `*`
-> WARNING: Use of this function will clear your notifications when used.
+> WARNING: Use of this function will clear your notifications when used.<br/>
 > Note that the way the function is currently set up only works for comment notifications. Any other kind of notification will return with broken strings for the attributes. It is for this reason I recommend changing your account settings to only include comment notifications.<br/>
 > Returns a list of notification objects, with the following attributes:<br/>
 > `post_id`: The id of the post on which the notification occured<br/>
 > `com_id`: The id of the comment that gave the notification<br/>
+
+## Memechat
+has_chats(driver) `~`
+> Returns either `True` or `False` with whether or not there are currently new unread memechats.
+
+get_unread_memechats(driver) `~` `*`
+> Returns a list of unread memechats as objects with the following attributes:<br/>
+> `user`: The username of the user who messaged you<br/>
+> `time_waiting`: How long ago the user sent the message<br/>
+> `text`: The message sent in the memechat. If the message is long enough, it won't display the whole thing.<br/>
+
+get_all_memechats(driver) `~` `*`
+> Unlike the unread version this one displays whether a memechat is read or unread, but it does NOT get the actual message that was sent. The object attributes are as follows:<br/>
+> `user`: The username of the user who messaged you<br/>
+> `time_waiting`: How long ago the user sent the message<br/>
+> `status`: either `read` or `unread`. All messages are ordered by most recent.<br/>
+
+post_memechat(driver, user, text) `~` `*`
+> Sends a memechat message to the given user. The user must be following you for it to work.<br/>
+> Usage: `post_memechat(driver, 'Imgflip', 'This is a memechat message')`
+
+## Moderation
+### Note: All of these require you to be logged in and be a moderator in the stream you're using them in.
+
