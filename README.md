@@ -25,4 +25,21 @@ get_token(driver)
 > Returns the current session token as a string. Requires being logged in.
 > Optionally, use ```driver.token``` instead.
 
+## Comments
+comment_vote(dtiver, vote_type, comment_id) ~
+> Add or Remove and upvote or downvote from a comment.<br/>
+> vote_type must be 1 to upvote, 0 to downvote, and -1 to remove your current vote.<br/>
+> Usage: ```comment_vote(driver, 1, 1234)``` *Upvotes the comment with id of 1234*
+
+get_comments(driver, post_id) *
+> Returns a list of comment objects on the post with the given post id.<br/>
+> Comment objects have the attributes ```identifier, user, content, postid, user_perm, image```<br/>
+> identifier: the comment id<br/>
+> user: username of the user who made the comment<br/>
+> content: the text of the comment<br/>
+> postid: the id of the post the comment is on<br/>
+> user_perm: the permission level of the user. includes ```global-mod, site-mod, stream-mod, normal-user```<br/>
+> image: if the comment contains an image, this will be a base64 encoded string of said image<br/>
+
+
 
