@@ -146,7 +146,7 @@ def get_notif_count(driver):
     
     respInfo = response.json()
     return int(respInfo['user']['nots'])
-    
+
 class Notification:
     def __init__(self, postid, com_id):
         self.post_id = post_id
@@ -169,7 +169,7 @@ def get_notifications(driver):
             pass
 
     return nots
-  
+        
 
 class Comment:
     def __init__(self, identifier, user, content, postid, user_perm, image):
@@ -415,8 +415,8 @@ def alter_post(driver, post_id, title="", tags="", nsfw=0, anon=0, disable_comme
         'iid': base36_decode(post_id),
         'title': title,
         'tags': tags,
-        'nsfw': nsfw,
-        'anon': anon,
+        'nsfw': str(nsfw),
+        'anon': str(anon),
         'disable_comments': disable_comments,
         '__tok': driver.token,
         '__cookie_enabled': '1'
@@ -458,6 +458,16 @@ def feature(driver, post_id, action, reason="other", note=""):
 
     url = "https://imgflip.com/ajax_moderate"
     if action == "disapprove":
+        '''
+        other
+        repost
+        political
+        spam
+        harassment
+        abuse
+        wrong_stream
+        wrong_language
+        '''
         data = {
             'action': 'disapprove',
             'iid': base36_decode(post_id),
