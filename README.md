@@ -131,5 +131,72 @@ post_memechat(driver, user, text) `~` `*`
 > Usage: `post_memechat(driver, 'Imgflip', 'This is a memechat message')`
 
 ## Moderation
-### Note: All of these require you to be logged in and be a moderator in the stream you're using them in.
+#### Note: All of these require you to be logged in and be a moderator in the stream you're using them in.
+
+ban_user(driver, user, stream, duration, banType) `~` `*`
+> Bans the user for preset hour durations.<br/>
+> banType must be either `comment` or `post`<br/>
+
+> The `duration` parameter can be any of the following number of hours: 2, 8, 24, 48, -1 (indefinite)<br/>
+> Usage: `ban_user(driver, 'Imgflip', 'fun', 8, post)` *Post bans the user Imgflip from fun stream for 8 hours*
+
+alter_post(driver, post_id, title, tags, nsfw, anonymous) `~`
+> Edits the post with the given post id<br/>
+> `title`, `tags`, `nsfw`, and `anonymous` are optional<br/>
+> NOTE: It will set all settings to the given field, so leaving the title field blank for example will set the post's current title to an empty string.<br/>
+> `nsfw` and `anonymous` must be either 1 or 0. `anonymous` will set the owner of the post to hidden.<br/>
+> Returns the response code from the server
+
+mark_nsfw(driver, post_id) `~` `*`
+> Toggles nsfw on the given post. I don't know why you would ever need this, but it's cool that it's here, I guess.
+> It was originally supposed to only set the post TO nsfw, but it doesn't and I'm too lazy to change it.
+
+feature(driver, post_id, action, reason, note) `~` `*`
+> Feature or Unfeature a post. Works on flagged images as well.<br/>
+> `action` can be either 'approve' or 'disapprove'<br/>
+
+> `reason` can be any of the following:<br/>
+> `other` (default if none specified)<br/>
+> `repost`<br/>
+> `political`<br/>
+> `spam`<br/>
+> `harassment`<br/>
+> `abuse` (of TOS)<br/>
+> `wrong_stream` (stream-specific rules)<br/>
+> `wrong_language` (if the stream has language reqs<br/>
+
+get_comment_flags(driver, stream) `~` `*`
+> Gets all flagged comments from the selected stream. Don't use the stream parameter for all streams you moderate.<br/>
+> Returns a list of comment objects with the following attributes:<br/>
+> `com_id`: the comment's id<br/>
+> `post_id`: the id of the post the comment is on<br/>
+> `content`: the content of the comment<br/>
+> `flagging_user`: the name of the user who flagged the comment<br/>
+> `flagged_user`: the username of the comment owner<br/>
+> `stream`: the stream the comment is in<br/>
+> `link`: the full url link to the comment that was flagged<br/>
+
+get_approval_queue(driver, stream) `~` `*`
+> Returns a list of post objects from the approval queue of the given stream. Objects have the following attributes:<br/>
+> `identifier`: the post id of the post to approve<br/>
+> `owner`: the username of the post's owner<br/>
+> `title`: the title of the post<br/>
+> `tags`: the tags on the post<br/>
+
+## Misc
+get_uid(driver, username)
+> Returns the user id number of the user with the given username.
+> This is required by a few of the functions, and is useful as although users can change their name, their uid never changes.
+
+follow(driver, uid, follow_type) `~`
+> follows the user with the given uid, obtained with `get_uid()`<br/>
+> follow type must be 1 for following, and 0 for unfollowing<br/>
+
+Imgflip's post ids are actually integers that are encoded in base 36. The two below functions allow conversion between the two, and are used in many functions that require the use of post ids.
+
+base36_encode(num)
+> After inputting an integer, returns the corresponding imgflip post id.
+
+base36_decode(string)
+> After inputting an imgflip id, returns the corresponding integer number.
 
