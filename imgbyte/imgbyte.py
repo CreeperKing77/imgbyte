@@ -431,7 +431,7 @@ def alter_post(driver, post_id, title="", tags="", nsfw=0, anon=0, disable_comme
     response = session.post(url, data=data, headers=headers)
     return(response)
 
-def botFormat(text, owner):
+def bot_format(text, owner):
     text = text + f"\n\n𝘐 𝘢𝘮 𝘢 𝘣𝘰𝘵, 𝘢𝘯𝘥 𝘵𝘩𝘪𝘴 𝘢𝘤𝘵𝘪𝘰𝘯 𝘸𝘢𝘴 𝘱𝘦𝘳𝘧𝘰𝘳𝘮𝘦𝘥 𝘢𝘶𝘵𝘰𝘮𝘢𝘵𝘪𝘤𝘢𝘭𝘭𝘺. 𝘍𝘰𝘳 𝘮𝘰𝘳𝘦 𝘪𝘯𝘧𝘰𝘳𝘮𝘢𝘵𝘪𝘰𝘯, 𝘱𝘭𝘦𝘢𝘴𝘦 𝘤𝘰𝘯𝘵𝘢𝘤𝘵 https://imgflip.com/user/{owner} "
     return text
 
