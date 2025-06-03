@@ -1,6 +1,10 @@
 # imgbyte
 Python module for interaction and actions with the imgflip website using a combination of selenium and requests.
 
+# Installation
+imgbyte is not up on PyPI, and can be installed via normal console commands such as
+`pip install imgbyte` or `python -m pip install imgbyte`
+
 # Documentation
 ## Setup
 createWindow()
