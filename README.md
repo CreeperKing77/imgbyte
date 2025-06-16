@@ -30,7 +30,7 @@ get_token(driver)
 > Optionally, use ```driver.token``` instead.
 
 ## Comments
-comment_vote(dtiver, vote_type, comment_id) `~`
+comment_vote(driver, vote_type, comment_id) `~`
 > Add or Remove and upvote or downvote from a comment.<br/>
 > vote_type must be 1 to upvote, 0 to downvote, and -1 to remove your current vote.<br/>
 > Usage: ```comment_vote(driver, 1, 1234)``` *Upvotes the comment with id of 1234*
